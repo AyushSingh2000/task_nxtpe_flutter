@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:task_nxtpe_flutter/view/product_details_view.dart';
 
@@ -18,10 +20,20 @@ class ProductListScreen extends StatelessWidget {
                 isScrollable: true,
                 tabs: productListViewModel.tabs,
                 controller: productListViewModel.tabController,
+                labelStyle: GoogleFonts.poppins(
+                    color: Colors.blue.shade700,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16),
+                unselectedLabelColor: Colors.grey.shade700,
+                indicatorColor: Colors.blue.shade700,
               ),
       ),
       body: productListViewModel.tabs.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: SpinKitChasingDots(
+              color: Colors.blue,
+              size: 45,
+            ))
           : NotificationListener<ScrollNotification>(
               onNotification: (ScrollNotification scrollInfo) {
                 if (scrollInfo.metrics.pixels ==
@@ -72,8 +84,14 @@ class ProductListScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(product.title),
-                                    Text('Price: \$${product.price}'),
+                                    Text(product.title,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600)),
+                                    Text('Price: \$${product.price}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400)),
                                   ],
                                 ),
                               ),

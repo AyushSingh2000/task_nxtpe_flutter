@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../models/product_model.dart';
 
@@ -14,10 +15,15 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  var channel = MethodChannel("AndroidChannel");
+  static const platform = MethodChannel("AndroidChannel");
 
-  showToast() {
-    channel.invokeMethod("showToast");
+  void showToast() async {
+    try {
+      await platform.invokeMethod(
+          "showToast", {"message": "You have bought the product"});
+    } on PlatformException catch (e) {
+      print("Failed to show toast: '${e.message}'.");
+    }
   }
 
   @override
@@ -63,7 +69,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: ElevatedButton(
                   onPressed: showToast,
                   //onPressed: () {  },
-                  child: Text('Buy Now'),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  child: Text('Buy Now',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white)),
                 ),
               ),
             ],
