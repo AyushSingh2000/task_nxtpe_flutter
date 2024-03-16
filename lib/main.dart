@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:task_nxtpe_flutter/view/splash_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:task_nxtpe_flutter/view/product_list_view.dart';
+import 'package:task_nxtpe_flutter/view_model/product_view_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: const SplashScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => ProductListViewModel(),
+      child: MaterialApp(
+        title: 'Product List',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: ProductListScreen(),
+      ),
     );
   }
 }
