@@ -62,6 +62,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: showToast,
+                  //onPressed: () {  },
                   child: Text('Buy Now'),
                 ),
               ),
